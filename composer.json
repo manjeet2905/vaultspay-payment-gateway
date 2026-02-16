@@ -1,0 +1,26 @@
+{
+  "name": "vp/vaultspay",
+  "description": "VaultsPay payment gateway Laravel package",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Vp\\VaultsPay\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Vp\\VaultsPay\\VaultsPayServiceProvider"
+      ],
+      "aliases": {
+        "VaultsPay": "Vp\\VaultsPay\\Facades\\VaultsPay"
+      }
+    }
+  },
+  "require": {
+    "php": "^8.1|^8.2",
+    "illuminate/support": "^10.0|^11.0"
+  },
+  "minimum-stability": "stable"
+}
