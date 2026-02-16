@@ -1,5 +1,5 @@
 {
-  "name": "vp/vaultspay",
+  "name": "vpay/vaultspay",
   "description": "VaultsPay payment gateway Laravel package",
   "type": "library",
   "license": "MIT",
