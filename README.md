@@ -14,7 +14,7 @@ No database required --- uses Laravel cache temporarily.
 ## Installation
 
 ``` bash
-composer require manjeet2905/vaultspay
+composer require vpay/vaultspay
 ```
 
 Publish configuration:
