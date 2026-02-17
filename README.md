@@ -1,20 +1,23 @@
 # VaultsPay Laravel Payment Gateway
 
-Laravel integration for **VaultsPay Hosted Checkout**.
+Laravel integration for **VaultsPay Hosted Checkout** returning verified
+payment results as JSON.
 
-This package allows you to accept payments using VaultsPay while keeping
-your application simple --- no session handling, no manual verification
-logic, and no frontend polling required.
+The package: - Creates a hosted payment - Redirects the customer to
+VaultsPay - Receives the return - Verifies the transaction using
+transactionId - Returns full gateway response
+
+No database required --- uses Laravel cache temporarily.
 
 ------------------------------------------------------------------------
 
 ## Installation
 
 ``` bash
-composer require vp/vaultspay
+composer require manjeet2905/vaultspay
 ```
 
-Publish config:
+Publish configuration:
 
 ``` bash
 php artisan vendor:publish --tag=vaultspay-config
@@ -27,21 +30,28 @@ php artisan vendor:publish --tag=vaultspay-config
     VAULTSPAY_BASE_URL=https://testapi.vaultspay.com/
     VAULTSPAY_CLIENT_ID=YOUR_CLIENT_ID
     VAULTSPAY_CLIENT_SECRET=YOUR_SECRET
-
     VAULTSPAY_CURRENCY=AED
     VAULTSPAY_CHANNEL=web
 
 ------------------------------------------------------------------------
 
-## Basic Usage
+## Usage
+
+Create a payment route:
 
 ``` php
 use Vp\VaultsPay\Facades\VaultsPay;
 
 Route::get('/pay', function () {
-    return VaultsPay::checkout(100, 'ORDER123');
+    return VaultsPay::checkout(100, 'ORDER1001');
 });
 ```
+
+After payment, VaultsPay redirects to:
+
+    /vaultspay/result/{reference}
+
+The package verifies payment and returns JSON response.
 
 ------------------------------------------------------------------------
 
@@ -80,6 +90,25 @@ Route::get('/pay', function () {
   }
 }
 ```
+
+------------------------------------------------------------------------
+
+## Status Values
+
+  Status    Meaning
+  --------- -------------------
+  SUCCESS   Payment captured
+  FAILED    Payment declined
+  PENDING   Processing
+  INVALID   Reference expired
+
+------------------------------------------------------------------------
+
+## Notes
+
+-   Package uses cache to temporarily store transactionId
+-   No database migration required
+-   Works with APIs, SPAs and mobile apps
 
 ------------------------------------------------------------------------
 
