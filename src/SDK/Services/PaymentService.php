@@ -40,7 +40,7 @@ class PaymentService
 
         // Fetch schemaCode dynamically (depends on channel + currency)
         $schemaCode = MethodService::getSchema($config, $token, $payload['currency']);
-        $payload['schemaCode'] = $schemaCode;
+        $payload['schemaCode'] = json_encode($schemaCode);
 
         return HttpClient::postJson(
             $config->baseUrl . '/external/v1/initialize-merchant-payment',

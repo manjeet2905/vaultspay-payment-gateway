@@ -8,9 +8,9 @@ use Vp\VaultsPay\SDK\Services\AuthService;
 
 class MethodService
 {
-    private static ?string $schemaCode = null;
+    private static ?array $schemaCode = null;
 
-    public static function getSchema(Config $config, string $token, string $currency): string
+    public static function getSchema(Config $config, string $token, string $currency): array
     {
         if (self::$schemaCode) {
             return self::$schemaCode;
@@ -41,7 +41,11 @@ class MethodService
             throw new \Exception('Invalid payment methods response: ' . json_encode($response));
         }
 
-        self::$schemaCode = $method['code'];
+        // self::$schemaCode = $method['code'];
+        $sCodes = array_column($response['data'], 'code');
+        $schCodes = implode(',', $sCodes);
+
+        self::$schemaCode = $sCodes;
 
         return self::$schemaCode;
     }

@@ -26,7 +26,7 @@ class AuthService
                 'clientId'     => $config->clientId,
                 'clientSecret' => $config->clientSecret,
 
-                // 🔴 REQUIRED FOR YOUR GATEWAY
+                // REQUIRED FOR YOUR GATEWAY
                 'currency'     => $config->currency,
                 'channel'      => $config->channel,
             ]
